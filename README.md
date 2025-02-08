@@ -5,10 +5,10 @@
 ####  Options
 
 	-h	Display this help message
-	-a    Shutdown system after programming wakealarm
-	-t    Time in hours
- 	-m    Time in minutes
-	-y    Do not ask for confirmation
+	-a	Shutdown system after programming wakealarm
+	-t	Time in hours
+ 	-m	Time in minutes
+	-y	Do not ask for confirmation
 
        
 ####  Examples
