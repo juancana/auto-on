@@ -2,7 +2,7 @@
 
   	./auto-on.sh [OPTIONS]
 
-###  Options:
+#####  Options:
 
   	-h	Display this help message
    	-a    Shutdown system after programming wakealarm
