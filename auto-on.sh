@@ -2,9 +2,9 @@
 
 
 # Default variable values
-apagado=false
-minutos=0
-horas=0
+shutdown=false
+minutes=0
+hours=0
 confirmation=true
 
 # Function to display script usage
@@ -45,27 +45,27 @@ while getopts 'hat:m:y' OPTION; do
      exit 0
      ;;
     a)
-     apagado=true
+     shutdown=true
      ;;
     t)
-     horas="$OPTARG"
+     hours="$OPTARG"
      re='^[0-9]+$'
-     if ! [[ $horas =~ $re ]] ; then
+     if ! [[ $hours =~ $re ]] ; then
       echo "ERROR Invalid number of hours"
       echo""
       exit 1
      fi
-     retraso=0
+     delay=0
      ;;
     m)
-     minutos="$OPTARG"
+     minutes="$OPTARG"
      re='^[0-9]+$'
-     if ! [[ $minutos =~ $re ]] ; then
+     if ! [[ $minutes =~ $re ]] ; then
       echo "ERROR Invalid number of minutes"
       echo""
       exit 1
      fi
-     retraso=0
+     delay=0
      ;;
     y)
      confirmation=false
@@ -83,21 +83,21 @@ done
 
 # Main script execution
 
-# Calcular hora de encendido
-if [[ -z $retraso ]]; then
- retraso=480
+# Calculate power on time
+if [[ -z $delay ]]; then
+ delay=480
  echo ""
  echo "Programming power on in 8h"
 else
- retraso=$(($minutos+($horas*60)))
+ delay=$(($minutes+($hours*60)))
  echo ""
- echo "Programming power on in "$horas"h "$minutos"m"
+ echo "Programming power on in "$hours"h "$minutes"m"
 fi
 
 
-# Confirmar con usuario
+# Prompt user
 if [ "$confirmation" = "true" ]; then
- if [ "$apagado" = true ]; then
+ if [ "$shutdown" = true ]; then
   echo "  and shut down now"
  else
   echo "  but not shutdown"
@@ -114,15 +114,15 @@ if [ "$confirmation" = "true" ]; then
  fi
 fi
 
-# Programar encendido automatico dentro de X horas
-parte1="echo \`date '+%s' -d '"
-parte2="+ "$(printf "%d" $retraso)" minutes"
-comando=$parte1$parte2"'\` > /sys/class/rtc/rtc0/wakealarm"
-sh -c "$comando"
+# Program auto power on in X hours
+part1="echo \`date '+%s' -d '"
+part2="+ "$(printf "%d" $delay)" minutes"
+command=$part1$part2"'\` > /sys/class/rtc/rtc0/wakealarm"
+sh -c "$command"
 
-if [ "$apagado" = true ]; then
+if [ "$shutdown" = true ]; then
  echo ""
- echo "Apagando equipo..."
+ echo "Shutting down..."
  echo ""
  shutdown -h now
 fi
