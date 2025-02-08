@@ -1,8 +1,8 @@
-###  Usage: 
+##  Usage: 
 
   	./auto-on.sh [OPTIONS]
 
-#####  Options:
+####  Options:
 
   	-h	Display this help message
    	-a    Shutdown system after programming wakealarm
@@ -11,14 +11,14 @@
       	-y    Do not ask for confirmation
 
        
-###  Examples:
+####  Examples:
   
   	auto-on.sh -a -t 1 -m 30    Shutdown and wake in 1h30m
 	auto-on.sh -t 5             Wake in 5h (computer stays on until manually shut down)
 
 
 
-###  Automate with crontab:
+####  Automate with crontab:
 
 	sudo cp auto-on.sh /root/bin/
 	sudo crontab -e
